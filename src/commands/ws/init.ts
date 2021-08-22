@@ -34,6 +34,5 @@ export async function init(project: string) {
   }
 
   await createRepos(config);
-
-  console.log('done', config);
+  console.log('Done! Thank you!');
 }
