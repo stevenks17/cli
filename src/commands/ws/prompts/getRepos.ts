@@ -23,7 +23,7 @@ async function shouldAddRepos() {
 }
 
 async function recursiveAskForRepo(answers: RepoInfo[] = []): Promise<RepoInfo[]> {
-  const { url, init } = await inquirer.prompt([
+  const { url } = await inquirer.prompt([
     {
       type: 'input',
       name: 'url',
@@ -37,6 +37,19 @@ async function recursiveAskForRepo(answers: RepoInfo[] = []): Promise<RepoInfo[]
   ])
 
   if (url === 'end') {
+    return answers;
+  }
+
+  const { init } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'init',
+      message: 'Initialization command:',
+      default: 'yarn install'
+    }
+  ])
+
+  if (init === 'end') {
     return answers;
   }
 
