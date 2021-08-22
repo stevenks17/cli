@@ -1,13 +1,17 @@
-import { DockerComposeConfig, WorkstationConfiguration } from "../../../types";
-import * as dockerServices from './../docker-services';
+import { Dict, DockerComposeConfig, DockerService, WorkstationConfiguration } from "../../../types";
+import { dockerServices } from '../dockerServices';
 
-function getName(gitUrl: string): string {
+function getName(gitUrl: string): string | undefined {
   const matches = gitUrl.match(/\/(?<name>.+).git/);
 
   return matches?.groups?.name;
 }
 
 function servicesFromRepos(config: WorkstationConfiguration) {
+  if (!config.repos) {
+    return {};
+  }
+
   return config.repos.reduce((res, repo) => {
     const name = getName(repo.url);
 
@@ -25,18 +29,30 @@ function servicesFromRepos(config: WorkstationConfiguration) {
     };
 
     return res;
-  }, {})
+  }, {} as Dict<DockerService>)
 }
 
 function predefinedServices(config: WorkstationConfiguration) {
+  if (!config.services) {
+    return {};
+  }
+
   return config.services.reduce((res, service) => {
-    res.services[service] = dockerServices[service];
-    res.volumes[service] = {};
+    res.services = {
+      ...res.services,
+      [service]: dockerServices[service]
+    };
+
+    res.volumes = {
+      ...res.volumes,
+      [service]: {}
+    };
+
     return res;
   }, {
     services: {},
     volumes: {}
-  });
+  } as DockerComposeConfig);
 }
 
 export function createCompose(config: WorkstationConfiguration) {

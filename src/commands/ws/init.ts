@@ -7,6 +7,7 @@ import { createRepos } from './services/createWorkstation/createRepos';
 import { confirmConfig } from './prompts/confirmConfig';
 import { tryPrintConfig } from './prompts/tryPrintConfig';
 import { tryLoadConfig } from './prompts/tryLoadConfig';
+import { createCompose } from './services/createCompose';
 
 export async function init(project: string) {
   let data: WorkstationConfiguration | undefined = await tryLoadConfig(project);
@@ -20,7 +21,7 @@ export async function init(project: string) {
     root: await getDirectory('Root Directory?')
   };
 
-  if (!await confirmConfig(config)) {
+  if (!await confirmConfig(config, 'Would you like create your workstation?')) {
     return;
   }
 
@@ -28,6 +29,10 @@ export async function init(project: string) {
     await tryPrintConfig(config);
   }
 
+  const compose = createCompose(config);
+  if (!await confirmConfig(compose, 'This is the docker compose that was created, continue?')) {
+    return;
+  }
 
   //await createRepos(config);
 
