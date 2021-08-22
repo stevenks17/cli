@@ -28,11 +28,6 @@ async function recursiveAskForRepo(answers: RepoInfo[] = []): Promise<RepoInfo[]
       type: 'input',
       name: 'url',
       message: `Enter a git repo (\'end\' to ${chalk.red('stop')})`
-    }, {
-      type: 'input',
-      name: 'init',
-      message: 'Initialization command:',
-      default: 'yarn install'
     }
   ])
 
