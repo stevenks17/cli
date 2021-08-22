@@ -5,7 +5,7 @@ export async function getServices(): Promise<string[]> {
     {
       type: 'checkbox',
       name: 'services',
-      message: 'Choose predefined services to add:',
+      message: 'Predefined Services:',
       choices: [
         'mysql', 'elasticsearch', 'postgres', 'redis'
       ]

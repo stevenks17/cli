@@ -21,19 +21,18 @@ export async function init(project: string) {
     root: await getDirectory('Root Directory?')
   };
 
-  if (!await confirmConfig(config, 'Would you like create your workstation?')) {
-    return;
-  }
-
   if (!loadedConfig) {
     await tryPrintConfig(config);
   }
 
   const compose = createCompose(config);
-  if (!await confirmConfig(compose, 'This is the docker compose that was created, continue?')) {
+  if (!await confirmConfig(compose, 'Generate docker compose file, continue?')) {
     return;
   }
 
+  if (!await confirmConfig(config, 'Create your workstation?')) {
+    return;
+  }
   //await createRepos(config);
 
   console.log('done', config);

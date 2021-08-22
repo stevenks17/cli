@@ -15,7 +15,7 @@ async function shouldAddRepos() {
     {
       type: 'confirm',
       name: 'shouldAdd',
-      message: 'Would you like to add repos to the workstation?'
+      message: 'Add git repos?'
     }
   ]);
 
@@ -27,7 +27,7 @@ async function recursiveAskForRepo(answers: RepoInfo[] = []): Promise<RepoInfo[]
     {
       type: 'input',
       name: 'url',
-      message: `Enter a git repo (\'end\' to ${chalk.red('stop')})`
+      message: `Git repo (\'end\' to ${chalk.red('stop')})`
     }
   ])
 

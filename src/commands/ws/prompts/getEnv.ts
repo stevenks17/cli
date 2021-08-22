@@ -6,7 +6,7 @@ async function shouldAddEnv() {
     {
       type: 'confirm',
       name: 'shouldAdd',
-      message: 'Would you like to add global environment variables?'
+      message: 'Add environment variables?'
     }
   ]);
 
