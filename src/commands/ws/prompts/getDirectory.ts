@@ -8,7 +8,7 @@ export async function getDirectory(message: string): Promise<string> {
       message,
       default: process.cwd()
     }
-  ])
+  ]);
 
-  return dir;
+  return dir[0] !== '/' ? `${process.cwd()}/${dir}` : dir;
 }

@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { RepoInfo } from '../../../types';
+import { run } from 'ajc-util';
 
 export async function getRepos(): Promise<RepoInfo[]> {
   if (!await shouldAddRepos()) {
@@ -27,11 +28,11 @@ async function recursiveAskForRepo(answers: RepoInfo[] = []): Promise<RepoInfo[]
     {
       type: 'input',
       name: 'url',
-      message: `Git repo (\'end\' to ${chalk.red('stop')})`
+      message: `Git repo (empty to ${chalk.red('stop')})`
     }
   ])
 
-  if (url === 'end') {
+  if (url === '') {
     return answers;
   }
 
@@ -44,7 +45,7 @@ async function recursiveAskForRepo(answers: RepoInfo[] = []): Promise<RepoInfo[]
     }
   ])
 
-  if (init === 'end') {
+  if (init === '') {
     return answers;
   }
 

@@ -15,25 +15,25 @@ export async function init(project: string) {
 
   const config = loadedConfig ? data as WorkstationConfiguration : {
     project,
+    root: await getDirectory('Root Directory?'),
     repos: await getRepos(),
     services: await getServices(),
-    env: await getEnv(),
-    root: await getDirectory('Root Directory?')
+    env: await getEnv()
   };
 
   if (!loadedConfig) {
+    console.log('Workstation Configurations:', JSON.stringify(config, null, 1));
     await tryPrintConfig(config);
   }
 
   const compose = createCompose(config);
-  if (!await confirmConfig(compose, 'Generate docker compose file, continue?')) {
-    return;
-  }
+  console.log('Docker Compose:', JSON.stringify(compose, null, 1));
 
   if (!await confirmConfig(config, 'Create your workstation?')) {
     return;
   }
-  //await createRepos(config);
+
+  await createRepos(config);
 
   console.log('done', config);
 }
