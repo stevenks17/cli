@@ -4,10 +4,11 @@ import { getServices } from './prompts/getServices';
 import { getEnv } from './prompts/getEnv';
 import { getDirectory } from './prompts/getDirectory';
 import { createRepos } from './services/createWorkstation/createRepos';
-import { confirmConfig } from './prompts/confirmConfig';
+import { confirm } from './prompts/confirm';
 import { tryPrintConfig } from './prompts/tryPrintConfig';
 import { tryLoadConfig } from './prompts/tryLoadConfig';
 import { createCompose } from './services/createCompose';
+import { createWorkstation } from './services/createWorkstation';
 
 export async function init(project: string) {
   let data: WorkstationConfiguration | undefined = await tryLoadConfig(project);
@@ -26,13 +27,9 @@ export async function init(project: string) {
     await tryPrintConfig(config);
   }
 
-  const compose = createCompose(config);
-  console.log('Docker Compose:', JSON.stringify(compose, null, 1));
-
-  if (!await confirmConfig(config, 'Create your workstation?')) {
+  if (!await confirm('Create your workstation?')) {
     return;
   }
 
-  await createRepos(config);
-  console.log('Done! Thank you!');
+  await createWorkstation(config);
 }
