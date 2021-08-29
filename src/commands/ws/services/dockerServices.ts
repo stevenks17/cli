@@ -1,6 +1,6 @@
-import { Dict, DockerService } from "../../types";
+import { Dict, DockerService } from "../../../types";
 
-export const dockerServices: Dict<DockerService> = {
+export default {
   mysql: {
     image: 'mysql:8',
     ports: [
@@ -37,4 +37,4 @@ export const dockerServices: Dict<DockerService> = {
       'elasticsearch:/usr/share/elasticsearch/data'
     ]
   }
-}
+} as Dict<DockerService>;

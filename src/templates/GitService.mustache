@@ -1,0 +1,18 @@
+{
+  {{#envPath}}
+  env_file: {{ envPath }},
+  {{/envPath}}
+  tty: true,
+  command: (env: string, options: CommandOptions) => {
+    return {{ command }}
+  },
+  {{#volumes}}
+  volumes: {{ volumes }},
+  {{/volumes}}
+  {{#ports}}
+  ports: {{ ports }}
+  {{/ports}},
+  image: function (env: string) {
+    return {{ image }}
+  }
+}

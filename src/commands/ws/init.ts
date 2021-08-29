@@ -1,13 +1,12 @@
+import { promises } from 'fs';
 import { WorkstationConfiguration } from '../../types';
 import { getRepos } from './prompts/getRepos';
 import { getServices } from './prompts/getServices';
 import { getEnv } from './prompts/getEnv';
 import { getDirectory } from './prompts/getDirectory';
-import { createRepos } from './services/createWorkstation/createRepos';
 import { confirm } from './prompts/confirm';
 import { tryPrintConfig } from './prompts/tryPrintConfig';
 import { tryLoadConfig } from './prompts/tryLoadConfig';
-import { createCompose } from './services/createCompose';
 import { createWorkstation } from './services/createWorkstation';
 
 export async function init(project: string) {
@@ -21,6 +20,8 @@ export async function init(project: string) {
     services: await getServices(),
     env: await getEnv()
   };
+
+  await promises.mkdir(config.root as string, { recursive: true });
 
   if (!loadedConfig) {
     console.log('Workstation Configurations:', JSON.stringify(config, null, 1));

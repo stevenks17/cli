@@ -1,6 +1,5 @@
 import { WorkstationConfiguration } from "../../../../types";
-import { run, zone } from 'ajc-util';
-import { promises } from 'fs';
+import { run } from 'ajc-util';
 
 export async function createRepos(config: WorkstationConfiguration): Promise<any> {
   if (!config.repos) {
@@ -8,10 +7,6 @@ export async function createRepos(config: WorkstationConfiguration): Promise<any
   }
 
   console.log('Cloning repos');
-  await promises.mkdir(config.root as string, { recursive: true });
-
-  const zonedRun = zone(run, null, null, { cwd: config.root });
-
   return config.repos.reduce((tail, repInfo) => {
     const command = repInfo.init.split(' ');
     return tail

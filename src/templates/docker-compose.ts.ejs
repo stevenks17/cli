@@ -1,0 +1,11 @@
+export default {
+  services: {
+<% for(const [key, service] of Object.entries(services)) { -%>
+    <%= key %>: { <% -%>
+  <% for(const [prop, value] of Object.entries(service)) { %>
+      <%= prop %>: <%- JSON.stringify(value) -%>
+  <% } %>
+    }
+<% } -%>
+  }
+} as DockerComposeConfig

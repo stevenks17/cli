@@ -1,5 +1,5 @@
-import { Dict, DockerComposeConfig, DockerService, WorkstationConfiguration } from "../../../types";
-import { dockerServices } from '../dockerServices';
+import { Dict, DockerComposeConfig, DockerService, WorkstationConfiguration } from "../../../../types";
+import dockerServices from "../dockerServices"
 
 function getName(gitUrl: string): string | undefined {
   const matches = gitUrl.match(/\/(?<name>.+).git/);
