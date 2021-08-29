@@ -1,5 +1,4 @@
 import inquirer from 'inquirer';
-import { Dict } from '../../../types';
 
 async function shouldAddEnv() {
   const { shouldAdd } = await inquirer.prompt([

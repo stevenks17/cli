@@ -1,5 +1,3 @@
-import { Dict, DockerService } from "../../../types";
-
 export default {
   mysql: {
     image: 'mysql:8',

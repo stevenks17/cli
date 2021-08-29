@@ -1,9 +1,7 @@
 import { promises } from 'fs';
-import { WorkstationConfiguration } from '../../types';
 import { getRepos } from './prompts/getRepos';
 import { getServices } from './prompts/getServices';
 import { getEnv } from './prompts/getEnv';
-import { getDirectory } from './prompts/getDirectory';
 import { confirm } from './prompts/confirm';
 import { tryPrintConfig } from './prompts/tryPrintConfig';
 import { tryLoadConfig } from './prompts/tryLoadConfig';

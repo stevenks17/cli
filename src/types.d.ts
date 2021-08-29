@@ -2,7 +2,7 @@ interface Dict<T> {
   [key: string]: T | undefined;
 }
 
-export interface RepoInfo {
+interface RepoInfo {
   url: string;
   init: string;
 }
@@ -26,20 +26,23 @@ interface DockerService {
   image: string;
 }
 
+interface CommandOptions {
+  test: boolean;
+}
+
 interface EnvironmentServiceMeta {
-  command: (env: string, options?: { test: boolean }) => string | string[];
+  command: (env: string, options: CommandOptions) => string | string[];
   image: (env: string) => string;
 }
 
-export type RepoService = Omit<DockerService, keyof EnvironmentServiceMeta> & EnvironmentServiceMeta;
+type RepoService = Omit<DockerService, keyof EnvironmentServiceMeta> & EnvironmentServiceMeta;
 
 interface DockerVolume {
 
 }
 
-export interface DockerComposeConfig {
+interface DockerComposeConfig {
   version?: string;
-  services?: Dict<DockerService>;
-  repoServices?: Dict<DockerService>
-  volumes?: Dict<DockerVolume>
+  services?: Dict<DockerService | RepoService>;
+  volumes?: Dict<DockerVolume>;
 }

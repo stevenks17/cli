@@ -1,4 +1,3 @@
-import { Dict, DockerComposeConfig, DockerService, WorkstationConfiguration } from "../../../../types";
 import dockerServices from "../dockerServices"
 
 function getName(gitUrl: string): string | undefined {
@@ -70,5 +69,5 @@ export function createCompose(config: WorkstationConfiguration) {
     volumes: {
       ...dockerServices.volumes
     }
-  } as DockerComposeConfig;
+  };
 }

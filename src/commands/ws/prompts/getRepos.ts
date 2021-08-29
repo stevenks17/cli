@@ -1,6 +1,5 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { RepoInfo } from '../../../types';
 import { run } from 'ajc-util';
 
 export async function getRepos(): Promise<RepoInfo[]> {

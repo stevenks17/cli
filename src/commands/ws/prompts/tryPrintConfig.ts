@@ -1,5 +1,4 @@
 import inquirer from "inquirer";
-import { WorkstationConfiguration } from "../../../types";
 import { JSAML } from 'ajc-util';
 import { getDirectory } from "./getDirectory";
 
