@@ -56,21 +56,19 @@ function predefinedServices(config: WorkstationConfiguration) {
 }
 
 export function createCompose(config: WorkstationConfiguration) {
-  const compose: DockerComposeConfig = {
-    version: '3.7'
-  };
-
   const repoServices = servicesFromRepos(config);
   const dockerServices = predefinedServices(config);
 
   return {
-    ...compose,
+    version: '3.7',
     services: {
-      ...repoServices,
       ...dockerServices.services
+    },
+    repoServices: {
+      ...repoServices,
     },
     volumes: {
       ...dockerServices.volumes
     }
-  };
+  } as DockerComposeConfig;
 }

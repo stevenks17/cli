@@ -31,7 +31,7 @@ interface EnvironmentServiceMeta {
   image: (env: string) => string;
 }
 
-export type EnvironmentService = Omit<DockerService, keyof EnvironmentServiceMeta> & EnvironmentServiceMeta;
+export type RepoService = Omit<DockerService, keyof EnvironmentServiceMeta> & EnvironmentServiceMeta;
 
 interface DockerVolume {
 
@@ -39,6 +39,7 @@ interface DockerVolume {
 
 export interface DockerComposeConfig {
   version?: string;
-  services?: Dict<DockerService | EnvironmentService>;
+  services?: Dict<DockerService>;
+  repoServices?: Dict<DockerService>
   volumes?: Dict<DockerVolume>
 }

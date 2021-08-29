@@ -15,7 +15,7 @@ export async function init(project: string) {
 
   const config = loadedConfig ? data as WorkstationConfiguration : {
     project,
-    root: await getDirectory('Root Directory?'),
+    root: `${process.cwd()}/${project}`,
     repos: await getRepos(),
     services: await getServices(),
     env: await getEnv()

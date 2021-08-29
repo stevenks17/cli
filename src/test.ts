@@ -14,6 +14,16 @@ const compiled = render(template, {
         'elasticsearch:/usr/share/elasticsearch/data'
       ]
     }
+  },
+  gitServices: {
+    'ajg-cli': {
+      command: 'yarn dev',
+      image: 'node:14',
+      ports: ['8000:8000']
+    }
+  },
+  volumes: {
+    mysql: {}
   }
 })
 
