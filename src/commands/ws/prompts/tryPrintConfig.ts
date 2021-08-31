@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { JSAML } from 'ajc-util';
+import { JSAML } from '@vlegm/util';
 import { getDirectory } from "./getDirectory";
 
 export async function tryPrintConfig(config: WorkstationConfiguration) {

@@ -1,10 +1,10 @@
-import { run } from "ajc-util";
+import { run } from "@vlegm/util";
 import { register } from "../utils/register";
 import { Command } from "commander";
 import chalk from 'chalk';
 
 register('shell [image]', (program: Command) => {
-  return program.description('Shell in AJ\'s dev environment')
+  return program.description('Attempt to shell into an image with an auto-removing container')
     .action(shell);
 });
 

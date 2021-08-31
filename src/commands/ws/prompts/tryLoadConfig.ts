@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { getDirectory } from "./getDirectory";
-import { JSAML } from 'ajc-util';
+import { JSAML } from '@vlegm/util';
 
 export async function tryLoadConfig<Type = JSON>(project: string): Promise<Type | undefined> {
   const { shouldLoad } = await inquirer.prompt([
