@@ -6,6 +6,7 @@ import { confirm } from './prompts/confirm';
 import { tryPrintConfig } from './prompts/tryPrintConfig';
 import { tryLoadConfig } from './prompts/tryLoadConfig';
 import { createWorkstation } from './services/createWorkstation';
+import { db } from '../../config/db';
 
 export async function init(project: string) {
   let data: WorkstationConfiguration | undefined = await tryLoadConfig(project);
@@ -19,6 +20,9 @@ export async function init(project: string) {
     env: await getEnv()
   };
 
+  db.push('root/projects', { [config.project]: config }, false);
+  db.push('root/project-names', [config.project], false);
+  
   await promises.mkdir(config.root as string, { recursive: true });
 
   if (!loadedConfig) {
