@@ -9,6 +9,8 @@ register('shell [image]', (program: Command) => {
 });
 
 export async function shell(image = 'ajrelic/dev:latest') {
+  const cwd = process.cwd();
   console.log(`image: ${chalk.yellowBright(image)}`);
-  await run('docker', ['run', '-it', '--rm', image]);
+  console.log(`volume: ${chalk.yellowBright(cwd)}`);
+  await run('docker', ['run', '-it', '--rm', '-v', `${cwd}:/host`, '-w', '/host', image]);
 }
