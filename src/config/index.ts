@@ -1,3 +1,3 @@
-import { dirname } from 'path';
+import {normalize} from 'path';
 
-export const rootDir = dirname(require.main.filename);
+export const rootDir = normalize(`${__dirname}/../`);
