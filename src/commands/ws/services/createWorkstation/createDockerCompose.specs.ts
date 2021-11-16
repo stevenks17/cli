@@ -2,7 +2,7 @@ import {createDockerCompose} from "./createDockerCompose";
 import {expect} from "chai";
 
 describe('createDockerCompose', () => {
-  it('should console.log', async () => {
+  it('should build compose with predefined services', async () => {
     const compose = await createDockerCompose({
       services: ['mysql']
     });
@@ -19,6 +19,38 @@ describe('createDockerCompose', () => {
         }, 
         "volumes": {
           "mysql": {},
+        }
+      } as DockerComposeConfig
+    `);
+  });
+
+  it('should build compose with ssh git repos', async () => {
+    const compose = await createDockerCompose({
+      project: 'cli',
+      repos: [
+        {
+          url: 'git@github.com:vlegm/cli.git',
+          init: 'yarn install'
+        }
+      ]
+    });
+
+    expect(compose).to.equalIgnoreSpaces(`
+      export default {
+        "version": "3.7",
+        "services": {
+          "cli": {      
+            "tty": true,           
+            "command": (env: string, options: CommandOptions) => {
+              return "yarn dev"
+            },           
+            "image": (env: string) => {
+              return "nodejs:14"
+            },          
+            "volumes": ["/app:/home/alfred/repos/vlegm/cli/cli/cli"],       
+          },
+        }, 
+        "volumes": {
         }
       } as DockerComposeConfig
     `);

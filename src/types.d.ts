@@ -9,7 +9,6 @@ interface RepoInfo {
 
 interface WorkstationConfiguration {
   project?: string;
-  root?: string;
   repos?: RepoInfo[];
   services?: string[];
   env?: Dict<string>;
