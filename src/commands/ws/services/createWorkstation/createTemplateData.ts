@@ -54,7 +54,7 @@ function predefinedServices(config: WorkstationConfiguration) {
   } as DockerComposeConfig);
 }
 
-export function createCompose(config: WorkstationConfiguration) {
+export function createTemplateData(config: WorkstationConfiguration) {
   const repoServices = servicesFromRepos(config);
   const dockerServices = predefinedServices(config);
 

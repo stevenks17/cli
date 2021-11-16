@@ -5,7 +5,6 @@ export async function createRepos(config: WorkstationConfiguration): Promise<any
     return;
   }
 
-  console.log('Cloning repos');
   return config.repos.reduce((tail, repInfo) => {
     const command = repInfo.init.split(' ');
     const [,name] = /\/(.+).git$/.exec(repInfo.url);
