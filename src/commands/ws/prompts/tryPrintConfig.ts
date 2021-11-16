@@ -18,6 +18,6 @@ export async function tryPrintConfig(config: WorkstationConfiguration) {
       dest = `${dest}/${config.project}.yaml`;
     }
 
-    JSAML.save(config, dest);
+    await JSAML.save(config, dest);
   }
 }
