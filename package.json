@@ -10,6 +10,7 @@
     "cli": "ts-node --files src/index.ts",
     "build": "tsc",
     "test": "ts-mocha --exit --require mocha.ts src/**/*.specs.ts",
+    "e2e": "ts-mocha --exit e2e/**/*.specs.ts",
     "test:watch": "ts-mocha -w --watch-extensions ts --require mocha.ts src/**/*.specs.ts"
   },
   "author": "",

@@ -1,4 +1,5 @@
 import dockerServices from "../dockerServices"
+import {getRoot} from "../getRoot";
 
 function getName(gitUrl: string): string | undefined {
   const matches = gitUrl.match(/\/(?<name>.+).git/);
@@ -11,7 +12,7 @@ function servicesFromRepos(config: WorkstationConfiguration) {
     return {};
   }
 
-  const root = `${process.cwd()}/${config.project}`;
+  const root = getRoot(config);
 
   return config.repos.reduce((res, repo) => {
     const name = getName(repo.url);
