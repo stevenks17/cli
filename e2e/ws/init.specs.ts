@@ -9,7 +9,8 @@ class User {
   lastOutput?: string;
 
   constructor(
-    public child:ChildProcess
+    public child:ChildProcess,
+    public promptID: string = '?'
   ) {
     child.stdout.pipe(process.stdout);
     child.stdout.on('data', (data:Buffer) => {
@@ -18,13 +19,13 @@ class User {
       }
 
       const output = data.toString('utf-8');
-      if(output.includes(this.prompt) && !this.sentInput) {
-        return this.doSend();
-      }
-
-      if(output.includes('?') && !output.includes(this.prompt)) {
-        this.lastOutput = output;
-        this.resolveSend();
+      if(output.includes(this.promptID)) {
+        if(output.includes(this.prompt)) {
+          !this.sentInput && this.doSend();
+        } else {
+          this.lastOutput = output;
+          this.resolveSend();
+        }
       }
     });
   }
@@ -43,10 +44,21 @@ class User {
     this.willSend.forEach((chunk) => this.child.stdin.write(chunk));
   }
 
-  send(prompt: string, chunks:string[], message?:string) {
+  send(prompt: string, answer?:string | string[], message?:string) {
     this.prompt = prompt;
-    this.willSend = chunks;
     this.waitingFor = message;
+
+    if(Array.isArray(answer)) {
+      this.willSend = answer;
+    } else if(typeof answer === 'string') {
+      this.willSend = [answer];
+    } else {
+      this.willSend = [];
+    }
+
+    if(this.willSend[this.willSend.length - 1] !== '\x0D') {
+      this.willSend.push('\x0D');
+    }
 
     if(this.lastOutput && this.lastOutput.includes(this.prompt)) {
       this.doSend();
@@ -71,12 +83,12 @@ describe('ws: init', () => {
 
     const user = new User(child);
 
-    await user.send('Use a config file?', ['n', '\x0D']);
-    await user.send('Add git repos?', ['n', '\x0D']);
-    await user.send('Predefined Services:', ['\x0D']);
-    await user.send('Add environment variables?', ['n', '\x0D']);
-    await user.send('Print workstation config?', ['n', '\x0D']);
-    await user.send('Create your workstation?', ['n', '\x0D']);
+    await user.send('Use a config file?', 'n');
+    await user.send('Add git repos?', 'n');
+    await user.send('Predefined Services:');
+    await user.send('Add environment variables?','n');
+    await user.send('Print workstation config?', 'n');
+    await user.send('Create your workstation?', 'n');
     await user.waitTillDone();
   });
 });
