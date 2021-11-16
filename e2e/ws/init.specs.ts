@@ -6,11 +6,9 @@ class User {
   resolve?:Function;
   prompt?:string;
   sentInput: boolean = false;
-  lastOutput?: string;
 
   constructor(
-    public child:ChildProcess,
-    public promptID: string = '?'
+    public child:ChildProcess
   ) {
     child.stdout.pipe(process.stdout);
     child.stdout.on('data', (data:Buffer) => {
@@ -19,13 +17,17 @@ class User {
       }
 
       const output = data.toString('utf-8');
-      if(output.includes(this.promptID)) {
-        if(output.includes(this.prompt)) {
-          !this.sentInput && this.doSend();
-        } else {
-          this.lastOutput = output;
-          this.resolveSend();
+      if(!this.sentInput && output.includes(this.prompt)) {
+        this.sentInput = true;
+        this.willSend.forEach((chunk) => this.child.stdin.write(chunk));
+
+        if(!this.waitingFor) {
+          this.resolveSend()
         }
+      }
+
+      if(this.waitingFor && output.includes(this.waitingFor)) {
+        this.resolveSend();
       }
     });
   }
@@ -39,15 +41,7 @@ class User {
     this.willSend = null
   }
 
-  private doSend() {
-    this.sentInput = true;
-    this.willSend.forEach((chunk) => this.child.stdin.write(chunk));
-  }
-
-  send(prompt: string, answer?:string | string[], message?:string) {
-    this.prompt = prompt;
-    this.waitingFor = message;
-
+  private setWillSend(answer?:string | string[]) {
     if(Array.isArray(answer)) {
       this.willSend = answer;
     } else if(typeof answer === 'string') {
@@ -59,10 +53,13 @@ class User {
     if(this.willSend[this.willSend.length - 1] !== '\x0D') {
       this.willSend.push('\x0D');
     }
+  }
 
-    if(this.lastOutput && this.lastOutput.includes(this.prompt)) {
-      this.doSend();
-    }
+  send(prompt: string, answer?:string | string[], message?:string) {
+    this.prompt = prompt;
+    this.waitingFor = message;
+
+    this.setWillSend(answer);
 
     return new Promise((resolve) => this.resolve = resolve);
   }
