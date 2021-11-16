@@ -11,6 +11,8 @@ function servicesFromRepos(config: WorkstationConfiguration) {
     return {};
   }
 
+  const root = `${process.cwd()}/${config.project}`;
+
   return config.repos.reduce((res, repo) => {
     const name = getName(repo.url);
 
@@ -23,7 +25,7 @@ function servicesFromRepos(config: WorkstationConfiguration) {
       command: 'yarn dev',
       image: 'nodejs:14',
       volumes: [
-        `/app:${config.root}/${name}`
+        `/app:${root}/${name}`
       ]
     };
 
