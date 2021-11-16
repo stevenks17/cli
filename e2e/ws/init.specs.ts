@@ -82,13 +82,13 @@ describe('ws: init', () => {
     });
 
     const user = new User(child);
-
     await user.send('Use a config file?', 'n');
     await user.send('Add git repos?', 'n');
     await user.send('Predefined Services:');
     await user.send('Add environment variables?','n');
-    await user.send('Print workstation config?', 'n');
-    await user.send('Create your workstation?', 'n');
+    await user.send('Create your workstation?', 'y');
+    await user.send('Print workstation config?', 'y');
+    await user.send('Destination?');
     await user.waitTillDone();
   });
 });
