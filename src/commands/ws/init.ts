@@ -7,6 +7,7 @@ import { tryPrintConfig } from './prompts/tryPrintConfig';
 import { tryLoadConfig } from './prompts/tryLoadConfig';
 import { createWorkstation } from './services/createWorkstation';
 import { db } from '../../config/db';
+import {getRoot} from "./services/getRoot";
 
 export async function init(project: string) {
   let data: WorkstationConfiguration | undefined = await tryLoadConfig(project);
@@ -21,8 +22,9 @@ export async function init(project: string) {
 
   db.push('root/projects', { [config.project]: config }, false);
   db.push('root/project-names', [config.project], false);
-  
-  await promises.mkdir(config.root as string, { recursive: true });
+
+  const root = getRoot(config);
+  await promises.mkdir(root as string, { recursive: true });
 
   if (!loadedConfig) {
     console.log('Workstation Configurations:', JSON.stringify(config, null, 1));
