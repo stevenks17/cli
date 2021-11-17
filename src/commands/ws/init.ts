@@ -1,4 +1,3 @@
-import { promises } from 'fs';
 import { getRepos } from './prompts/getRepos';
 import { getServices } from './prompts/getServices';
 import { getEnv } from './prompts/getEnv';
