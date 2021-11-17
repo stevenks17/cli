@@ -15,7 +15,7 @@ export async function tryPrintConfig(config: WorkstationConfiguration) {
     let dest = await getDirectory('Destination?');
 
     if (!dest.includes('.')) {
-      dest = `${dest}/${config.project}.yaml`;
+      dest = `${dest}/${config.project}/workstation.yaml`;
     }
 
     await JSAML.save(config, dest);
