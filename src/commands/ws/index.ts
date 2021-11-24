@@ -12,17 +12,18 @@ register('ws', (program: Command) => {
     mkdirSync(dataDir);
   }
 
-
   program.description('Workstation tool helps you set up docker environments')
-    .command('init <project>')
+
+  program.command('init <project>')
+    .description('Initialize a new project')
     .action(init);
 
-  program.description('Output all of the currently registered projects')
-    .command('projects')
+  program.command('projects')
+    .description('Output all of the currently registered projects')
     .action(projects);
 
-  program.description('Removes reference and record of project')
-    .command('remove <project>')
+  program.command('remove <project>')
+    .description('Removes reference and record of project')
     .action(remove);
 
   return program;
