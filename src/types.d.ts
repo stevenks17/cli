@@ -7,6 +7,11 @@ interface RepoInfo {
   init: string;
 }
 
+interface AppConfiguration {
+  rootDir: string;
+  dataDir: string;
+}
+
 interface WorkstationConfiguration {
   project?: string;
   repos?: RepoInfo[];

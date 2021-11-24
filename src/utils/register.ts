@@ -7,10 +7,10 @@ export interface CommandInitiator {
   cb: RegisterCallback
 }
 
-const initators: CommandInitiator[] = [];
+const initiators: CommandInitiator[] = [];
 
 export function register(nameAndArgs: string, cb: RegisterCallback) {
-  initators.push({ nameAndArgs, cb });
+  initiators.push({ nameAndArgs, cb });
 }
 
 export function buildProgram(rootDir: string, order: string[]): Command {
@@ -21,7 +21,7 @@ export function buildProgram(rootDir: string, order: string[]): Command {
   });
 
   order.map((commandName) =>
-    initators.find((command) => command.nameAndArgs.includes(commandName))!
+    initiators.find((command) => command.nameAndArgs.includes(commandName))!
   ).forEach((initiator: CommandInitiator) => {
     initiator.cb(program.command(initiator.nameAndArgs))
   })

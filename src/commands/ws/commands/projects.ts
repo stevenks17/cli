@@ -1,8 +1,8 @@
 import chalk from 'chalk';
-import { db } from "../../config/db";
+import {Project} from "../models/Project";
 
 export async function projects() {
-  const projects = db.getData('root/project-names');
+  const projects = await Project.names();
   
   if(!projects.length) {
     console.log(`There are ${chalk.red('no')} projects currently registered`);

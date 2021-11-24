@@ -1,18 +1,14 @@
-import {spawn} from "child_process";
-import {User} from "../utils/User";
+import {expect} from "chai";
+import {MockCLIUser} from "@vlegm/util";
 import {config} from "../../configs/e2e";
 
-describe('ws: init', () => {
+describe('ws - empty project', () => {
   it('should initialize workstation', async function () {
     this.timeout(0);
-    const child = spawn('vlm', ['ws', 'init', 'tmp-test'], {
-      stdio: ['pipe', 'pipe', 'inherit'],
-      cwd: config.root
+    const user = new MockCLIUser('vlm', ['ws', 'init', config.project], {
+      cwd: config.tmpDir
     });
 
-    console.log('config', config.root);
-
-    const user = new User(child);
     await user.send('Use a config file?', 'n');
     await user.send('Add git repos?', 'n');
     await user.send('Predefined Services:');
@@ -21,5 +17,27 @@ describe('ws: init', () => {
     await user.send('Print workstation config?', 'y');
     await user.send('Destination?');
     await user.waitTillDone();
+  });
+
+  it('should be able query projects', async function() {
+    this.timeout(0);
+    const user = new MockCLIUser('vlm', ['ws', 'projects'], {
+      cwd: config.tmpDir
+    });
+
+    const output = await user.waitFor('Projects');
+
+    expect(output.includes(config.project)).to.be.true;
+  })
+
+  it('should remove project', async function() {
+    this.timeout(0);
+    const user = new MockCLIUser('vlm', ['ws', 'remove', config.project], {
+      cwd: config.tmpDir
+    });
+
+    const output = await user.waitFor('has been removed');
+
+    expect(output.includes(config.project)).to.be.true;
   });
 });

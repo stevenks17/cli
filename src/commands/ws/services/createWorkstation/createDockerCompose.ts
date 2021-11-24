@@ -1,6 +1,6 @@
 import {createTemplateData} from "./createTemplateData";
 import {readFileSync} from "fs";
-import {rootDir} from "../../../../config";
+import {rootDir} from "../../../../config/app";
 import {render} from "ejs";
 
 export async function createDockerCompose(config: WorkstationConfiguration) {
