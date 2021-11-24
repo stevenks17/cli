@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { buildProgram } from './utils/register';
-import { rootDir } from './config';
+import { rootDir } from './config/app';
 import chalk from 'chalk';
 
 const program = buildProgram(`${rootDir}/commands`, ['shell', 'ws', 'vue']);
