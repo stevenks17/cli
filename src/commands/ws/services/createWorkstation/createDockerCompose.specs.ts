@@ -26,7 +26,7 @@ describe('createDockerCompose', () => {
 
   it('should build compose with ssh git repos', async () => {
     const compose = await createDockerCompose({
-      project: 'cli',
+      name: 'cli',
       repos: [
         {
           url: 'git@github.com:vlegm/cli.git',

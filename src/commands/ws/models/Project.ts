@@ -7,7 +7,8 @@ const { readdir, unlink } = promises;
 
 interface Project {
   name: string;
-  config: WorkstationConfiguration
+  root: string;
+  config: WorkstationConfiguration;
 }
 
 function databaseURL(name:string) {
@@ -23,8 +24,12 @@ export const Project = {
     return JSAML.save(project, databaseURL(project.name))
   },
 
+  async get(name: string): Promise<Project> {
+    return JSAML.read(databaseURL(name)) as Promise<Project>
+  },
+
   has(name: string) {
-    return existsSync(`${dataDir}/${name}.json`);
+    return existsSync(databaseURL(name));
   },
 
   async names(): Promise<string[]> {

@@ -1,3 +1,5 @@
-export function getRoot(config:WorkstationConfiguration): string {
-  return `${process.cwd()}/${config.project}`;
+import { normalize } from "path";
+
+export function getRoot(name:string): string {
+  return normalize(`${process.cwd()}/${name}`);
 }

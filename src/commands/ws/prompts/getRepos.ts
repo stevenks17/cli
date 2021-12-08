@@ -27,7 +27,7 @@ async function recursiveAskForRepo(answers: RepoInfo[] = []): Promise<RepoInfo[]
     {
       type: 'input',
       name: 'url',
-      message: `Git repo (empty to ${chalk.red('stop')})`
+      message: `Git repo (empty to ${chalk.redBright('stop')})`
     }
   ])
 

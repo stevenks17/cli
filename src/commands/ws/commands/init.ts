@@ -5,13 +5,14 @@ import { confirm } from '../prompts/confirm';
 import { tryLoadConfig } from '../prompts/tryLoadConfig';
 import { createWorkstation } from '../services/createWorkstation';
 import {Project} from "../models/Project";
+import { getRoot } from '../services/getRoot';
 
-export async function init(project: string) {
-  let data: WorkstationConfiguration | undefined = await tryLoadConfig(project);
+export async function init(name: string) {
+  let data: WorkstationConfiguration | undefined = await tryLoadConfig(name);
   const loadedConfig = !!data;
 
   const config = loadedConfig ? data as WorkstationConfiguration : {
-    project,
+    name,
     repos: await getRepos(),
     services: await getServices(),
     env: await getEnv()
@@ -21,8 +22,9 @@ export async function init(project: string) {
     return;
   }
 
-  Project.save({
-    name: project,
+  await Project.save({
+    name,
+    root: getRoot(name),
     config
   });
 

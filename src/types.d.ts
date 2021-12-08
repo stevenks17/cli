@@ -13,7 +13,7 @@ interface AppConfiguration {
 }
 
 interface WorkstationConfiguration {
-  project?: string;
+  name?: string;
   repos?: RepoInfo[];
   services?: string[];
   env?: Dict<string>;
