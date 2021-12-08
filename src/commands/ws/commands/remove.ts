@@ -4,7 +4,7 @@ import {Project} from "../models/Project";
 import { confirm } from '../prompts/confirm';
 import { getRoot } from '../services/getRoot';
 
-const {unlink} = promises;
+const {rm} = promises;
 
 export async function remove(name: string) {
   if(!Project.has(name)) {
@@ -25,6 +25,6 @@ export async function remove(name: string) {
 
   const deleteRoot = await confirm('Would you also like to delete the project\'s directory?');
   if(deleteRoot) {
-    await unlink(getRoot(project.root))
+    await rm(project.root, { recursive: true })
   }
 }
