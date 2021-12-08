@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { JSAML } from '@vlegm/util';
+import { JSAML } from '@vlegm/utils';
 import { getDirectory } from "./getDirectory";
 import { getRoot } from "../services/getRoot";
 

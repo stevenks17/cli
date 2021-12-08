@@ -1,4 +1,4 @@
-import { run } from '@vlegm/util';
+import { run } from '@vlegm/utils';
 import {getRoot} from "../getRoot";
 import { normalize } from 'path';
 

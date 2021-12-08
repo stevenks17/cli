@@ -1,4 +1,4 @@
-import { run } from "@vlegm/util";
+import { run } from "@vlegm/utils";
 import { register } from "../utils/register";
 import { Command } from "commander";
 import chalk from 'chalk';
