@@ -1,4 +1,5 @@
 import {promises} from "fs";
+import { normalize } from "path";
 import { rootDir } from "../../../../config/app";
 import {createDockerCompose} from "./createDockerCompose";
 import {createRepos} from "./createRepos";
@@ -8,7 +9,7 @@ import {tryPrintConfig} from "../../prompts/tryPrintConfig";
 const { writeFile, readFile, mkdir } = promises;
 
 export async function createWorkstation(config: WorkstationConfiguration, loadedConfig: boolean) {
-  const root = getRoot(config);
+  const root = getRoot(config.name);
   await mkdir(root, { recursive: true });
 
   if (!loadedConfig) {
@@ -20,7 +21,8 @@ export async function createWorkstation(config: WorkstationConfiguration, loaded
 
   await createRepos(config);
 
-  const typesDock = await readFile(`${rootDir}/../src/types.d.ts`, 'utf-8');
+  const typeDest = normalize(`${rootDir}/../src/types.d.ts`);
+  const typesDock = await readFile(typeDest, 'utf-8');
   await writeFile(`${root}/docker-compose.ts`, compose);
   await writeFile(`${root}/types.d.ts`, typesDock);
 }

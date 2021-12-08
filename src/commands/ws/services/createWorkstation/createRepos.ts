@@ -9,7 +9,7 @@ export async function createRepos(config: WorkstationConfiguration): Promise<any
   return config.repos.reduce((tail, repInfo) => {
     const command = repInfo.init.split(' ');
     const [,name] = /\/(.+).git$/.exec(repInfo.url);
-    const root = getRoot(config);
+    const root = getRoot(config.name);
 
     return tail
       .then(() => run('git', ['clone', repInfo.url], { cwd: root }))

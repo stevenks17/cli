@@ -12,7 +12,7 @@ function servicesFromRepos(config: WorkstationConfiguration) {
     return {};
   }
 
-  const root = getRoot(config);
+  const root = getRoot(config.name);
 
   return config.repos.reduce((res, repo) => {
     const name = getName(repo.url);
