@@ -1,7 +1,7 @@
 import {dataDir} from "../../../config/app";
 import { promises, existsSync } from "fs";
 import {basename} from "path";
-import {JSAML} from "@vlegm/util";
+import {JSAML} from "@vlegm/utils";
 
 const { readdir, unlink } = promises;
 

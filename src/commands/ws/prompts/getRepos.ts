@@ -1,6 +1,5 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import { run } from '@vlegm/utils';
 
 export async function getRepos(): Promise<RepoInfo[]> {
   if (!await shouldAddRepos()) {
