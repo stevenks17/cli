@@ -1,5 +1,6 @@
 import {getRoot} from "../getRoot";
 import { run } from '@vlegm/utils';
+import { normalize } from 'path';
 
 export async function createRepos(config: WorkstationConfiguration): Promise<any> {
   if (!config.repos) {
@@ -13,6 +14,6 @@ export async function createRepos(config: WorkstationConfiguration): Promise<any
 
     return tail
       .then(() => run('git', ['clone', repInfo.url], { cwd: root }))
-      .then(() => run(command[0], command.slice(1), { cwd: `${root}/${name}` }));
+      .then(() => run(command[0], command.slice(1), { cwd: normalize(`${root}/${name}`), shell:true }));
   }, Promise.resolve() as Promise<any>);
 }
