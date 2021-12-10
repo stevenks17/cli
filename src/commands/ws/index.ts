@@ -23,7 +23,7 @@ register('ws', (program: Command) => {
     .description('Initialize a new project')
     .action(init);
 
-  program.command('start [project]')
+  program.command('start [project] [environment]')
     .description('Start docker services for project')
     .action(start);
 
