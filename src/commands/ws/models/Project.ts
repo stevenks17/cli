@@ -3,33 +3,40 @@ import { promises, existsSync } from "fs";
 import {basename} from "path";
 import {JSAML} from "@vlegm/utils";
 
-const { readdir, unlink } = promises;
+const { readdir, unlink, mkdir } = promises;
 
-interface Project {
+export interface Project {
   name: string;
   root: string;
   config: WorkstationConfiguration;
 }
 
-function databaseURL(name:string) {
-  return `${dataDir}/${name}.json`;
+function dataURL(name:string) {
+  return `${dataDir}/${name}`;
+}
+function projectURL(name:string) {
+  return `${dataURL(name)}/project.json`;
 }
 
 export const Project = {
   async save(project: Project) {
+    if(!existsSync(dataURL(project.name))) {
+      await mkdir(dataURL(project.name));
+    }
+
     if(this.has(project.name)) {
       throw new Error(`Project already exists, choose a different name: ${project.name}`);
     }
 
-    return JSAML.save(project, databaseURL(project.name))
+    return JSAML.save(project, projectURL(project.name))
   },
 
   async get(name: string): Promise<Project> {
-    return JSAML.read(databaseURL(name)) as Promise<Project>
+    return JSAML.read(projectURL(name)) as Promise<Project>
   },
 
   has(name: string) {
-    return existsSync(databaseURL(name));
+    return existsSync(projectURL(name));
   },
 
   async names(): Promise<string[]> {
@@ -38,6 +45,6 @@ export const Project = {
   },
 
   async remove(name: string) {
-    await unlink(databaseURL(name));
+    await unlink(projectURL(name));
   }
 }

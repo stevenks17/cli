@@ -1,6 +1,4 @@
 import chalk from 'chalk';
-import { normalize } from 'path';
-import { run } from '@vlegm/utils';
 import {Project} from "../models/Project";
 
 export async function projects() {

@@ -8,13 +8,13 @@ const {rm} = promises;
 
 export async function remove(name: string) {
   if(!Project.has(name)) {
-    console.log(`There is no project named: ${chalk.redBright(name)}`);
+    console.log(`There is no project named: ${chalk.blueBright(name)}`);
     return;
   }
 
   const project = await Project.get(name);
 
-  const shouldDelete = await confirm(`Are you sure you want to delete? (${chalk.redBright(name)})`);
+  const shouldDelete = await confirm(`Are you sure you want to ${chalk.redBright('delete')} ? (${chalk.blueBright(name)})`);
   if(!shouldDelete) {
     console.log(`${chalk.redBright('Aborted!')}`);
     return;
