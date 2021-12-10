@@ -14,7 +14,7 @@ export async function remove(name: string) {
 
   const project = await Project.get(name);
 
-  const shouldDelete = await confirm(`Are you sure you want to ${chalk.redBright('delete')} ? (${chalk.blueBright(name)})`);
+  const shouldDelete = await confirm(`Are you sure you want to ${chalk.redBright('delete')}? (${chalk.blueBright(name)})`);
   if(!shouldDelete) {
     console.log(`${chalk.redBright('Aborted!')}`);
     return;
