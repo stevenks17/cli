@@ -4,10 +4,9 @@ import { Project } from "../../../models/Project";
 import { createHash } from "crypto";
 import { JSAML, run } from "@vlegm/utils";
 import chalk from "chalk";
-import { generateDockerCompose } from "../../generateDockerCompose";
-import { stringify } from "querystring";
+import { generateDockerCompose } from "../../generateDockerCompose"
 
-const { readFile, writeFile } = promises;
+const { readFile } = promises;
 
 function dockerComposeTSURL(project: Project) {
   return normalize(`${project.root}/docker-compose.ts`);
