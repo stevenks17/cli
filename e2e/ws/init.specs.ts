@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {MockCLIUser} from "@vlegm/util";
+import {MockCLIUser} from "@vlegm/utils";
 import {config} from "../../configs/e2e";
 
 describe('ws - empty project', () => {
@@ -9,13 +9,16 @@ describe('ws - empty project', () => {
       cwd: config.tmpDir
     });
 
-    await user.send('Use a config file?', 'n');
-    await user.send('Add git repos?', 'n');
-    await user.send('Predefined Services:');
-    await user.send('Add environment variables?','n');
-    await user.send('Create your workstation?', 'y');
-    await user.send('Print workstation config?', 'y');
-    await user.send('Destination?');
+    user.test([
+      ['Use a config file?', 'n'],
+      ['Add git repos?', 'n'],
+      ['Predefined Services:'],
+      ['Add environment variables?','n'],
+      ['Create your workstation?', 'y'],
+      ['Print workstation config?', 'y'],
+      ['Destination?']
+    ]);
+
     await user.waitTillDone();
   });
 
