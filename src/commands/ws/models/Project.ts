@@ -25,10 +25,6 @@ export const Project = {
       await mkdir(dataURL(project.name));
     }
 
-    if(this.has(project.name)) {
-      throw new Error(`Project already exists, choose a different name: ${project.name}`);
-    }
-
     return JSAML.save(project, projectURL(project.name))
   },
 
