@@ -22,7 +22,7 @@ describe('ws - empty project', () => {
     await user.waitTillDone();
   });
 
-  it('should be able query projects', async function() {
+  it('should be seen in projects', async function() {
     this.timeout(0);
     const user = new MockCLIUser('vlm', ['ws', 'projects'], {
       cwd: config.tmpDir
@@ -31,7 +31,7 @@ describe('ws - empty project', () => {
     const output = await user.waitFor('Projects');
 
     expect(output.includes(config.project)).to.be.true;
-  })
+  });
 
   it('should remove project', async function() {
     this.timeout(0);
@@ -44,6 +44,16 @@ describe('ws - empty project', () => {
       ['Would you also like to delete the project\'s directory?', 'y']
     ]);
 
+    await user.waitFor('Have a great day!');
+  });
+
+  it('should no longer be seen in projects', async function() {
+    this.timeout(0);
+    const user = new MockCLIUser('vlm', ['ws', 'projects'], {
+      cwd: config.tmpDir
+    });
+
+    await user.waitFor('There are no projects currently registered');
     await user.waitFor('Have a great day!');
   });
 });

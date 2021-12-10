@@ -3,7 +3,7 @@ import { promises, existsSync } from "fs";
 import {basename} from "path";
 import {JSAML} from "@vlegm/utils";
 
-const { readdir, unlink, mkdir } = promises;
+const { readdir, unlink, mkdir, rm } = promises;
 
 export interface Project {
   name: string;
@@ -37,11 +37,13 @@ export const Project = {
   },
 
   async names(): Promise<string[]> {
-    const files = await readdir(dataDir);
-    return files.map((file) => basename(file).replace('.json', ''));
+    const files = await readdir(dataDir, { withFileTypes: true });
+    return files
+      .filter((file) => file.isDirectory())
+      .map((file) => file.name);
   },
 
   async remove(name: string) {
-    await unlink(projectURL(name));
+    return rm(dataURL(name), { recursive: true });
   }
 }
