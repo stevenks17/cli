@@ -39,8 +39,11 @@ describe('ws - empty project', () => {
       cwd: config.tmpDir
     });
 
-    const output = await user.waitFor('has been removed');
+    await user.test([
+      ['Are you sure you want to delete?', 'y', `${config.project} has been removed!`],
+      ['Would you also like to delete the project\'s directory?', 'y']
+    ]);
 
-    expect(output.includes(config.project)).to.be.true;
+    await user.waitFor('Have a great day!');
   });
 });
