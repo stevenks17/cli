@@ -7,6 +7,7 @@ import {dataDir} from "../../config/app";
 import {remove} from "./commands/remove";
 import { defaultProject } from "./commands/default";
 import { Application } from "./models/Application";
+import { start } from "./commands/start";
 
 
 register('ws', (program: Command) => {
@@ -21,6 +22,10 @@ register('ws', (program: Command) => {
   program.command('init <project>')
     .description('Initialize a new project')
     .action(init);
+
+  program.command('start [project]')
+    .description('Start docker services for project')
+    .action(start);
 
   program.command('default [newDefault]')
     .description('Get/Set the default project for commands')

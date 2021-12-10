@@ -8,16 +8,8 @@
     "declaration": true,
     "outDir": "dist"
   },
-  "exclude": [
-    "dist",
-    "backups",
-    "repos",
-    "node_modules",
-    "tmp",
-    "e2e",
-    "src/commands/ws/configs"
-  ],
   "include": [
-    "src"
+    "docker-compose.ts",
+    "types.d.ts"
   ]
 }

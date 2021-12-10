@@ -8,6 +8,7 @@ const { readdir, unlink, mkdir } = promises;
 export interface Project {
   name: string;
   root: string;
+  hash?: string;
   config: WorkstationConfiguration;
 }
 
