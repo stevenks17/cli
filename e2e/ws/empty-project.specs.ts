@@ -2,14 +2,14 @@ import {expect} from "chai";
 import {MockCLIUser} from "@vlegm/utils";
 import {config} from "../../configs/e2e";
 
-describe('ws - empty project', () => {
+describe('ws - Empty Project', () => {
   it('should initialize workstation', async function () {
     this.timeout(0);
     const user = new MockCLIUser('vlm', ['ws', 'init', config.project], {
       cwd: config.tmpDir
     });
 
-    user.test([
+    await user.test([
       ['Use a config file?', 'n'],
       ['Add git repos?', 'n'],
       ['Predefined Services:'],
@@ -28,9 +28,10 @@ describe('ws - empty project', () => {
       cwd: config.tmpDir
     });
 
-    const output = await user.waitFor('Projects');
-
+    const output = await user.nextMessage();
     expect(output.includes(config.project)).to.be.true;
+
+    await user.waitFor('Have a great day!');
   });
 
   it('should remove project', async function() {
@@ -53,7 +54,9 @@ describe('ws - empty project', () => {
       cwd: config.tmpDir
     });
 
-    await user.waitFor('There are no projects currently registered');
+    const output = await user.nextMessage();
+    expect(output.includes(config.project)).to.be.false;
+
     await user.waitFor('Have a great day!');
   });
 });
