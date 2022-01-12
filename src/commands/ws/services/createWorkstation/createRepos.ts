@@ -1,4 +1,4 @@
-import { run } from '@vlegm/util';
+import { run } from '@vlegm/utils';
 
 export async function createRepos(config: WorkstationConfiguration): Promise<any> {
   if (!config.repos) {
