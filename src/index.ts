@@ -3,7 +3,7 @@ import { buildProgram } from './utils/register';
 import { rootDir } from './config';
 import chalk from 'chalk';
 
-const program = buildProgram(`${rootDir}/commands`, ['shell', 'ws']);
+const program = buildProgram(`${rootDir}/commands`, ['shell', 'ws', 'vue']);
 
 program.parseAsync(process.argv)
   .then(() => console.log(`Have a ${chalk.green('great')} day!`))
